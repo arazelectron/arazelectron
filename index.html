@@ -4,122 +4,214 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Müvəqqəti Texniki İşlər</title>
-
   <style>
     :root{
       --bg1:#0b1220;
       --bg2:#0f1b33;
+      --card:#0f1a2f;
       --text:#eaf0ff;
       --muted:#a9b6d3;
       --accent:#ff8a00;
+      --accent2:#ffd28a;
+      --border: rgba(255,138,0,.35);
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
     }
-
     *{box-sizing:border-box}
-
     body{
       margin:0;
-      min-height:100vh;
-      font-family: system-ui, Arial, sans-serif;
+      min-height:100svh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(800px 500px at 20% 20%, rgba(255,138,0,.15), transparent),
+        radial-gradient(900px 600px at 15% 20%, rgba(255,138,0,.20), transparent 60%),
+        radial-gradient(800px 500px at 85% 75%, rgba(110,168,255,.18), transparent 55%),
         linear-gradient(180deg, var(--bg1), var(--bg2));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
+      display:grid;
+      place-items:center;
+      padding:24px;
     }
+
+    .wrap{ width:min(920px, 100%); }
 
     .card{
-      width:min(900px,100%);
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.10);
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
       border-radius:22px;
-      padding:40px 25px;
-      text-align:center;
-      box-shadow:0 20px 60px rgba(0,0,0,.5);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
     }
 
-    /* 🔥 LOGO */
+    .topbar{
+      padding:18px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.10);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+
+    /* ✅ LOGO */
     .logo{
-      width:120px;
-      max-width:40%;
-      margin-bottom:15px;
+      height:28px;
+      width:auto;
+    }
+
+    .status{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:14px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .pill{
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,138,0,.12);
+      border:1px solid rgba(255,138,0,.28);
+      color: var(--accent2);
+      font-weight:600;
+    }
+
+    .content{
+      padding:34px 22px 26px;
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:22px;
     }
 
     h1{
-      margin:10px 0;
-      font-size: clamp(24px,4vw,36px);
+      margin:0 0 10px;
+      font-size: clamp(24px, 3.6vw, 40px);
+      line-height:1.1;
+      letter-spacing:-.4px;
     }
-
     p{
-      color:var(--muted);
+      margin:0 0 14px;
+      color: var(--muted);
       font-size:16px;
-      line-height:1.6;
-      max-width:600px;
-      margin:0 auto 20px;
+      line-height:1.65;
+      max-width: 56ch;
     }
 
-    .buttons{
+    .note{
+      margin-top:18px;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px dashed rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
+      color: rgba(234,240,255,.9);
+      font-size:14px;
+    }
+
+    .side{
+      border-radius:18px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
       display:flex;
+      flex-direction:column;
       gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top:20px;
+      align-self:start;
     }
 
     .btn{
-      padding:12px 18px;
-      border-radius:12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,138,0,.35);
+      background: linear-gradient(180deg, rgba(255,138,0,.18), rgba(255,138,0,.10));
+      color: var(--text);
       text-decoration:none;
-      font-weight:600;
-      border:1px solid rgba(255,138,0,.4);
-      background:rgba(255,138,0,.15);
-      color:#fff;
-      transition:.2s;
+      font-weight:650;
+      transition:.18s transform ease, .18s filter ease;
     }
-
-    .btn:hover{
-      transform:translateY(-2px);
-      background:rgba(255,138,0,.25);
-    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
 
     .footer{
-      margin-top:25px;
+      padding:16px 22px 18px;
+      border-top:1px solid rgba(255,255,255,.08);
+      display:flex;
+      justify-content:space-between;
+      color: rgba(169,182,211,.9);
       font-size:13px;
-      color:var(--muted);
+      background: rgba(0,0,0,.08);
     }
+
+    @media (max-width: 760px){
+      .content{ grid-template-columns: 1fr; }
+    }
+
+    .spinner{
+      width:18px;height:18px;border-radius:50%;
+      border:2px solid rgba(255,255,255,.25);
+      border-top-color: var(--accent);
+      animation: spin .9s linear infinite;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg);} }
   </style>
 </head>
-
 <body>
-  <div class="card">
+  <main class="wrap">
+    <section class="card">
 
-    <!-- ✅ LOGO -->
-    <img src="logo.png" alt="Araz Electron" class="logo">
+      <div class="topbar">
+        <div class="brand">
+          <!-- ✅ SƏNİN LOGO -->
+          <img src="logo.png" class="logo" alt="Araz Electron">
+        </div>
 
-    <h1>Sayt müvəqqəti olaraq bağlıdır</h1>
+        <div class="status">
+          <span class="spinner"></span>
+          <span class="pill">Texniki işlər gedir</span>
+        </div>
+      </div>
 
-    <p>
-      Serverdə yaranmış texniki problem səbəbilə sayt qısa müddətlik dayandırılıb.
-      Narahatçılığa görə üzr istəyirik. Çox tezliklə yenidən xidmətinizdə olacağıq.
-    </p>
+      <div class="content">
+        <div>
+          <h1>Sayt müvəqqəti olaraq əlçatan deyil</h1>
+          <p>
+            Serverdə texniki problem səbəbilə sayt qısa müddətlik dayandırılıb.
+            Narahatçılığa görə üzr istəyirik. Sayt tezliklə yenidən xidmətinizdə olacaq.
+          </p>
 
-    <div class="buttons">
-      <!-- 📞 İSTƏSƏN TELEFON ƏLAVƏ EDƏ BİLƏRSƏN -->
+          <div class="note">
+            Zəhmət olmasa bir az sonra yenidən yoxlayın.
+          </div>
+        </div>
 
-      <!-- 📸 INSTAGRAM -->
-      <a class="btn"
-         href="https://www.instagram.com/arazelectron/"
-         target="_blank">
-         Instagram səhifəmiz
-      </a>
-    </div>
+        <aside class="side">
+          <h2>Aşagıdakı buton ile İnstagram sehifemize baxa bilersiniz </h2>
 
-    <div class="footer">
-      © 2026 Araz Electron
-    </div>
+          <!-- ✅ INSTAGRAM -->
+          <a class="btn"
+             href="https://instagram.com/arazelectron"
+             target="_blank">
+             Instagram səhifəmiz
+          </a>
+        </aside>
+      </div>
 
-  </div>
+      <div class="footer">
+        <span>© 2026 Araz Electron</span>
+        <span>Müvəqqəti xəbərdarlıq səhifəsi</span>
+      </div>
+
+    </section>
+  </main>
 </body>
 </html>
